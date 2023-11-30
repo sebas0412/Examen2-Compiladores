@@ -33,8 +33,7 @@ t_EQUALS = r'='
 
 
 def t_TOKEN(t):
-    r'\d+' #numero
-    t.value = int(t.value)    
+    r't[0-9]' #numero 
     return t
 
 def t_NUMBER(t):
@@ -100,7 +99,7 @@ def p_error(p):
 # -----------------  Build the lexer -----------------
 lexer = lex.lex()
 
-data = '''a = 5 + 6'''
+data = '''t1 = 5 + 6'''
            
 # Give the lexer some input
 lexer.input(data)
