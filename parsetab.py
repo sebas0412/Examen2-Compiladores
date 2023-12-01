@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CHARACTER EQUALS NUMBER PLUS TIMES TOKEN\n    statement : operacion empty\n        | operacion statement\n    \n    operacion : suma \n        | multiplicacion\n    \n    suma : TOKEN EQUALS NUMBER PLUS NUMBER\n        | TOKEN EQUALS CHARACTER PLUS NUMBER\n        | TOKEN EQUALS NUMBER PLUS CHARACTER\n        | TOKEN EQUALS CHARACTER PLUS CHARACTER\n    \n    multiplicacion : TOKEN EQUALS NUMBER TIMES NUMBER\n        | TOKEN EQUALS CHARACTER TIMES NUMBER\n        | TOKEN EQUALS NUMBER TIMES CHARACTER\n        | TOKEN EQUALS CHARACTER TIMES CHARACTER\n    empty : '
+_lr_signature = 'CHARACTER EQUALS NUMBER PLUS TIMES TOKEN\n    statement : operacion\n        | operacion statement\n    \n    operacion : suma \n        | multiplicacion\n    \n    suma : TOKEN EQUALS NUMBER PLUS NUMBER\n        | TOKEN EQUALS CHARACTER PLUS NUMBER\n        | TOKEN EQUALS NUMBER PLUS CHARACTER\n        | TOKEN EQUALS CHARACTER PLUS CHARACTER\n        | TOKEN EQUALS NUMBER PLUS TOKEN\n        | TOKEN EQUALS TOKEN PLUS NUMBER\n        | TOKEN EQUALS TOKEN PLUS CHARACTER\n        | TOKEN EQUALS CHARACTER PLUS TOKEN\n        | TOKEN EQUALS TOKEN PLUS TOKEN\n    \n    multiplicacion : TOKEN EQUALS NUMBER TIMES NUMBER\n        | TOKEN EQUALS CHARACTER TIMES NUMBER\n        | TOKEN EQUALS NUMBER TIMES CHARACTER\n        | TOKEN EQUALS CHARACTER TIMES CHARACTER\n        | TOKEN EQUALS NUMBER TIMES TOKEN\n        | TOKEN EQUALS TOKEN TIMES NUMBER\n        | TOKEN EQUALS TOKEN TIMES CHARACTER\n        | TOKEN EQUALS CHARACTER TIMES TOKEN\n        | TOKEN EQUALS TOKEN TIMES TOKEN\n    '
     
-_lr_action_items = {'TOKEN':([0,2,3,4,15,16,17,18,19,20,21,22,],[5,5,-3,-4,-5,-7,-9,-11,-8,-6,-12,-10,]),'$end':([1,2,3,4,6,7,15,16,17,18,19,20,21,22,],[0,-13,-3,-4,-1,-2,-5,-7,-9,-11,-8,-6,-12,-10,]),'EQUALS':([5,],[8,]),'NUMBER':([8,11,12,13,14,],[9,15,17,20,22,]),'CHARACTER':([8,11,12,13,14,],[10,16,18,19,21,]),'PLUS':([9,10,],[11,13,]),'TIMES':([9,10,],[12,14,]),}
+_lr_action_items = {'TOKEN':([0,2,3,4,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,],[5,5,-3,-4,8,17,20,23,26,29,32,-13,-10,-11,-22,-19,-20,-9,-5,-7,-18,-14,-16,-12,-8,-6,-21,-17,-15,]),'$end':([1,2,3,4,6,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,],[0,-1,-3,-4,-2,-13,-10,-11,-22,-19,-20,-9,-5,-7,-18,-14,-16,-12,-8,-6,-21,-17,-15,]),'EQUALS':([5,],[7,]),'NUMBER':([7,11,12,13,14,15,16,],[9,18,21,24,27,31,34,]),'CHARACTER':([7,11,12,13,14,15,16,],[10,19,22,25,28,30,33,]),'PLUS':([8,9,10,],[11,13,15,]),'TIMES':([8,9,10,],[12,14,16,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,2,],[1,7,]),'operacion':([0,2,],[2,2,]),'suma':([0,2,],[3,3,]),'multiplicacion':([0,2,],[4,4,]),'empty':([2,],[6,]),}
+_lr_goto_items = {'statement':([0,2,],[1,6,]),'operacion':([0,2,],[2,2,]),'suma':([0,2,],[3,3,]),'multiplicacion':([0,2,],[4,4,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,17 +27,26 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> statement","S'",1,None,None,None),
-  ('statement -> operacion empty','statement',2,'p_statement','Examen.py',61),
-  ('statement -> operacion statement','statement',2,'p_statement','Examen.py',62),
-  ('operacion -> suma','operacion',1,'p_operacion','Examen.py',68),
-  ('operacion -> multiplicacion','operacion',1,'p_operacion','Examen.py',69),
-  ('suma -> TOKEN EQUALS NUMBER PLUS NUMBER','suma',5,'p_suma','Examen.py',74),
-  ('suma -> TOKEN EQUALS CHARACTER PLUS NUMBER','suma',5,'p_suma','Examen.py',75),
-  ('suma -> TOKEN EQUALS NUMBER PLUS CHARACTER','suma',5,'p_suma','Examen.py',76),
-  ('suma -> TOKEN EQUALS CHARACTER PLUS CHARACTER','suma',5,'p_suma','Examen.py',77),
-  ('multiplicacion -> TOKEN EQUALS NUMBER TIMES NUMBER','multiplicacion',5,'p_multiplicacion','Examen.py',82),
-  ('multiplicacion -> TOKEN EQUALS CHARACTER TIMES NUMBER','multiplicacion',5,'p_multiplicacion','Examen.py',83),
-  ('multiplicacion -> TOKEN EQUALS NUMBER TIMES CHARACTER','multiplicacion',5,'p_multiplicacion','Examen.py',84),
-  ('multiplicacion -> TOKEN EQUALS CHARACTER TIMES CHARACTER','multiplicacion',5,'p_multiplicacion','Examen.py',85),
-  ('empty -> <empty>','empty',0,'p_empty','Examen.py',89),
+  ('statement -> operacion','statement',1,'p_statement','Examen.py',85),
+  ('statement -> operacion statement','statement',2,'p_statement','Examen.py',86),
+  ('operacion -> suma','operacion',1,'p_operacion','Examen.py',91),
+  ('operacion -> multiplicacion','operacion',1,'p_operacion','Examen.py',92),
+  ('suma -> TOKEN EQUALS NUMBER PLUS NUMBER','suma',5,'p_suma','Examen.py',97),
+  ('suma -> TOKEN EQUALS CHARACTER PLUS NUMBER','suma',5,'p_suma','Examen.py',98),
+  ('suma -> TOKEN EQUALS NUMBER PLUS CHARACTER','suma',5,'p_suma','Examen.py',99),
+  ('suma -> TOKEN EQUALS CHARACTER PLUS CHARACTER','suma',5,'p_suma','Examen.py',100),
+  ('suma -> TOKEN EQUALS NUMBER PLUS TOKEN','suma',5,'p_suma','Examen.py',101),
+  ('suma -> TOKEN EQUALS TOKEN PLUS NUMBER','suma',5,'p_suma','Examen.py',102),
+  ('suma -> TOKEN EQUALS TOKEN PLUS CHARACTER','suma',5,'p_suma','Examen.py',103),
+  ('suma -> TOKEN EQUALS CHARACTER PLUS TOKEN','suma',5,'p_suma','Examen.py',104),
+  ('suma -> TOKEN EQUALS TOKEN PLUS TOKEN','suma',5,'p_suma','Examen.py',105),
+  ('multiplicacion -> TOKEN EQUALS NUMBER TIMES NUMBER','multiplicacion',5,'p_multiplicacion','Examen.py',114),
+  ('multiplicacion -> TOKEN EQUALS CHARACTER TIMES NUMBER','multiplicacion',5,'p_multiplicacion','Examen.py',115),
+  ('multiplicacion -> TOKEN EQUALS NUMBER TIMES CHARACTER','multiplicacion',5,'p_multiplicacion','Examen.py',116),
+  ('multiplicacion -> TOKEN EQUALS CHARACTER TIMES CHARACTER','multiplicacion',5,'p_multiplicacion','Examen.py',117),
+  ('multiplicacion -> TOKEN EQUALS NUMBER TIMES TOKEN','multiplicacion',5,'p_multiplicacion','Examen.py',118),
+  ('multiplicacion -> TOKEN EQUALS TOKEN TIMES NUMBER','multiplicacion',5,'p_multiplicacion','Examen.py',119),
+  ('multiplicacion -> TOKEN EQUALS TOKEN TIMES CHARACTER','multiplicacion',5,'p_multiplicacion','Examen.py',120),
+  ('multiplicacion -> TOKEN EQUALS CHARACTER TIMES TOKEN','multiplicacion',5,'p_multiplicacion','Examen.py',121),
+  ('multiplicacion -> TOKEN EQUALS TOKEN TIMES TOKEN','multiplicacion',5,'p_multiplicacion','Examen.py',122),
 ]

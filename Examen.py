@@ -54,13 +54,39 @@ def t_error(t):
 
 # ----------------- SYNTACTIC ANALYSIS -----------------
 
+class Node:
+    esRaiz = 0
+    tipo = ""
+    token = ""
+    hijoDerecho = ""
+    hijoIzquierdo = ""
+    def __init__(self,tipo,token,hijoderecho,hijoizquierdo):
+         self.tipo = tipo
+         self.token = token
+         self.hijoDerecho = hijoderecho
+         self.hijoIzquierdo = hijoizquierdo
+    def setEsRaiz(self, raiz):
+        self.esRaiz = raiz
+    def getTipo(self):
+        return self.tipo
+    def getToken(self):
+        return self.token
+    def getHijoDerecho(self):
+        return self.hijoDerecho
+    def getHijoIzquierdo(self):
+        return self.hijoIzquierdo
+
+ast = []
+astMultiplicacion = []
+raicesArbolSuma = []
+raicesArbolMultiplicacion = []
+
 #raiz del programa
 def p_statement(t):
     '''
-    statement : operacion empty
+    statement : operacion
         | operacion statement
     '''
-    pass
 
 def p_operacion(t):
     '''
@@ -74,7 +100,16 @@ def p_suma(t):
         | TOKEN EQUALS CHARACTER PLUS NUMBER
         | TOKEN EQUALS NUMBER PLUS CHARACTER
         | TOKEN EQUALS CHARACTER PLUS CHARACTER
+        | TOKEN EQUALS NUMBER PLUS TOKEN
+        | TOKEN EQUALS TOKEN PLUS NUMBER
+        | TOKEN EQUALS TOKEN PLUS CHARACTER
+        | TOKEN EQUALS CHARACTER PLUS TOKEN
+        | TOKEN EQUALS TOKEN PLUS TOKEN
     '''
+    nodo = Node(t[4], t[1],t[3],t[5])
+    ast.append(nodo)
+    print(t[1], t[2], t[3], t[4],t[5])
+
 # Definicion de los loops
 def p_multiplicacion(t):
     '''
@@ -82,12 +117,19 @@ def p_multiplicacion(t):
         | TOKEN EQUALS CHARACTER TIMES NUMBER
         | TOKEN EQUALS NUMBER TIMES CHARACTER
         | TOKEN EQUALS CHARACTER TIMES CHARACTER
+        | TOKEN EQUALS NUMBER TIMES TOKEN
+        | TOKEN EQUALS TOKEN TIMES NUMBER
+        | TOKEN EQUALS TOKEN TIMES CHARACTER
+        | TOKEN EQUALS CHARACTER TIMES TOKEN
+        | TOKEN EQUALS TOKEN TIMES TOKEN
     '''
+    nodo = Node(t[4], t[1],t[3],t[5])
+    ast.append(nodo)
+    print(t[1], t[2], t[3], t[4],t[5])
 
-def p_empty(p):
+'''def p_empty(p):
     'empty : '
-    pass
-
+    pass'''
 
 # Manejo de errores de sintaxis 
 def p_error(p):
@@ -99,7 +141,7 @@ def p_error(p):
 # -----------------  Build the lexer -----------------
 lexer = lex.lex()
 
-data = '''t1 = 5 + 6'''
+data = '''t1 = z + 4 t2 = t1 * c t3 = 3 * t2 t4 = d * t3 t5 = e + f t6 = t5 + g t7 = t6 + h t8 = t1 + t5 t9 = t1 + t7'''
            
 # Give the lexer some input
 lexer.input(data)
@@ -112,3 +154,32 @@ while True:
 
 parser = yacc.yacc()
 parser.parse(data)
+
+for i in range(len(ast)):
+    token = ast[i].getToken()
+    repeticiones = 0
+    simbolo = ast[i].getTipo()
+    for j in range(len(ast)):
+        if token == ast[j].getHijoDerecho() or token == ast[j].getHijoIzquierdo():
+            repeticiones = repeticiones + 1
+            if repeticiones > 1 and simbolo == "+":
+                raicesArbolSuma.append(token)
+                break
+            if repeticiones > 1 and simbolo == "*":
+                raicesArbolMultiplicacion.append(token)
+                break
+    if repeticiones == 0 and simbolo == "+":
+        raicesArbolMultiplicacion.append(token)
+
+        
+    if repeticiones == 0 and simbolo == "*":
+        raicesArbolMultiplicacion.append(token)
+                
+    token = ""
+
+print("Raices del arbol de sumas")
+for i in range(len(raicesArbolSuma)):
+    print("Raiz: " + raicesArbolSuma[i])
+print("Raices del arbol de multiplicaciones")
+for i in range(len(raicesArbolMultiplicacion)):
+    print("Raiz: " + raicesArbolMultiplicacion[i])
